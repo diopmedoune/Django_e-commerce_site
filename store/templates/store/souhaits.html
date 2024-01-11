@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<body>
+
+    <div class="row">
+        {% for order in orders %}
+        <div class="col-md-4 col-xs-6">
+            <div class="product">
+                <div class="product-img">
+                    <a href="{{ order.product.thumbnail.url }}">
+                        <img src="{{ order.product.thumbnail.url }}" style="height: 200px" alt="{{ order.product.name }}">
+                    </a>
+                    <div class="product-label">
+                        {% if product.on_sale %}
+                        <span class="sale">-{{ product.discount_percentage }}%</span>
+                        {% endif %}
+    
+                    </div>
+                </div>
+                <div class="product-body">
+                    <p class="product-category">{{ order.product.category }}</p>
+                    <h3 class="product-name"><a href="{{ order.product.get_absolute_url }}">{{ order.product.name }}</a></h3>
+                    <h4 class="product-price">{{ order.product.price }}F <del class="product-old-price">{{ order.product.old_price}}F</del></h4>
+                   
+                    <div class="product-btns">
+                        <a href="{% url 'product-detail' order.product.slug %}"><button class="quick-view"><i
+                                    class="fa fa-eye"></i><span class="tooltipp">Voir les détails</span></button></a>
+                    </div>
+                    <div class="add-to-cart">
+                        <button class="add-to-cart-btn"><i class="fa fa-shopping-cart"></i><a
+                                href="{% url 'add-to-cart' order.product.slug %}"> ajouter au panier</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    </div>
+
+
+</body>
+{% endblock %}

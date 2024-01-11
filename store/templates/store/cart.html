@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+    /* Vos styles existants */
+
+    .quantity-input {
+        width: 50px;
+        text-align: center;
+        margin-top: 5px;
+    }
+
+    .quantity-adjust {
+        cursor: pointer;
+        color: dodgerblue;
+        text-decoration: underline;
+        margin-left: 10px;
+    }
+
+    .cart-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        margin-bottom: 20px;
+        /* Ajustement de la marge */
+    }
+
+    .cart-item img {
+        max-height: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        /* Alignement horizontal */
+        display: block;
+        /* Ajout pour gérer les espaces blancs sous les images */
+    }
+
+    .cart-item p {
+        font-size: 1.2em;
+        text-align: center;
+        margin: 0;
+    }
+
+    .cart-items-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        /* Ajustement de l'espacement entre les éléments */
+    }
+
+    .content {
+        max-width: 1200px;
+        margin: 0 auto;
+        margin-left: 250px;
+        margin-right: 250px;
+    }
+
+    .cart-container {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .delete-cart-link,
+    #acheter-btn,
+    #voir-facture-btn {
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+        margin-right: 10px;
+        text-align: center;
+        /* Ajout pour centrer le texte */
+    }
+
+    .delete-cart-link {
+        color: white;
+        background-color: red;
+    }
+
+    #acheter-btn,
+    #voir-facture-btn {
+        background-color: dodgerblue;
+        color: white;
+    }
+
+    #acheter-btn:active,
+    #voir-facture-btn:active {
+        background-color: white;
+        color: dodgerblue;
+    }
+</style>
+
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="content">
+                <div class="cart-container">
+                    <div class="cart-items-container">
+                        {% for order in orders %}
+                        <div class="cart-item">
+                            <div class="cart-item-details">
+                                <img src="{{ order.product.thumbnail.url }}" height="200px"
+                                    alt="{{ order.product.name }}">
+                                <p>
+                                <h3 class="product-name"><a href="{{ product.get_absolute_url }}">{{ order.product.name }}</a></h3>
+                                <h4 class="product-price">{{ order.product.price }}F</h4>
+                                <span>Quantité: {{ order.quantity }}</span>
+                                </p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <p class="text-center">
+                    <a class="delete-cart-link cart-btn" href="{% url 'delete-cart' %}">Supprimer le Panier</a>
+                    <a id="voir-facture-btn" class="cart-btn" href="{% url 'display-invoice' %}">Voir la facture</a>
+                    <a id="acheter-btn" class="cart-btn" href="{% url 'display-invoice' %}">Acheter</a>
+                </p>
+                <script>
+                    document.getElementById("acheter-btn").addEventListener("click", function () {
+                        // Display thank you message
+                        alert("Commande en cours de traitement. Merci de votre fidélité!");
+
+                        // Redirect to the specified link
+                        window.location.href = this.href;
+                    });
+                </script>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
