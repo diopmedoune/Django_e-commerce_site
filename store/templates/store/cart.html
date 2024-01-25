@@ -116,12 +116,12 @@
                 <p class="text-center">
                     <a class="delete-cart-link cart-btn" href="{% url 'delete-cart' %}">Supprimer le Panier</a>
                     <a id="voir-facture-btn" class="cart-btn" href="{% url 'display-invoice' %}">Voir la facture</a>
-                    <a id="acheter-btn" class="cart-btn" href="{% url 'display-invoice' %}">Acheter</a>
+                    <a id="acheter-btn" class="cart-btn" href="https://www.paypal.com/us/signin">Acheter</a>
                 </p>
                 <script>
                     document.getElementById("acheter-btn").addEventListener("click", function () {
                         // Display thank you message
-                        alert("Commande en cours de traitement. Merci de votre fidélité!");
+                        alert("Vous allez être redirigé vers papal pour le payement !");
 
                         // Redirect to the specified link
                         window.location.href = this.href;
